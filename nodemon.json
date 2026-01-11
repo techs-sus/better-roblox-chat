@@ -1,0 +1,8 @@
+{
+	"$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/refs/heads/master/src/schemas/json/nodemon.json",
+	"verbose": false,
+	"ignore": ["**/src/**", "**/build/**"],
+	"watch": ["server/out", "client/out", "shared/out", "./buildFullModule.ts"],
+	"ext": "lua,luau",
+	"exec": "bun run ./reinstallShared.ts && bun run ./buildFullModule.ts"
+}

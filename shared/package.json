@@ -1,0 +1,36 @@
+{
+	"name": "@rbxts/shared",
+	"version": "1.0.0",
+	"description": "",
+	"main": "out/init.lua",
+	"scripts": {
+		"build": "rbxtsc",
+		"watch": "rbxtsc -w",
+		"prepublishOnly": "pnpm run build"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@10.22.0",
+	"types": "out/index.d.ts",
+	"files": [
+		"out",
+		"!**/*.tsbuildinfo"
+	],
+	"publishConfig": {
+		"access": "restricted"
+	},
+	"devDependencies": {
+		"@rbxts/compiler-types": "catalog:full",
+		"@rbxts/types": "catalog:full",
+		"@typescript-eslint/eslint-plugin": "catalog:full",
+		"@typescript-eslint/parser": "catalog:full",
+		"eslint": "catalog:full",
+		"eslint-config-prettier": "catalog:full",
+		"eslint-plugin-prettier": "catalog:full",
+		"eslint-plugin-roblox-ts": "catalog:full",
+		"prettier": "catalog:full",
+		"roblox-ts": "catalog:full",
+		"typescript": "catalog:full"
+	}
+}

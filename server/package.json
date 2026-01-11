@@ -1,0 +1,35 @@
+{
+	"name": "roblox-ts-with-azalea-server",
+	"version": "1.0.0",
+	"author": "",
+	"main": "out/init.lua",
+	"devDependencies": {
+		"@rbxts/compiler-types": "catalog:full",
+		"@rbxts/types": "catalog:full",
+		"@typescript-eslint/eslint-plugin": "catalog:full",
+		"@typescript-eslint/parser": "catalog:full",
+		"eslint": "catalog:full",
+		"eslint-config-prettier": "catalog:full",
+		"eslint-plugin-prettier": "catalog:full",
+		"eslint-plugin-roblox-ts": "catalog:full",
+		"prettier": "catalog:full",
+		"roblox-ts": "catalog:full",
+		"typescript": "catalog:full"
+	},
+	"description": "",
+	"files": [
+		"out",
+		"!**/*.tsbuildinfo"
+	],
+	"keywords": [],
+	"license": "ISC",
+	"packageManager": "pnpm@10.22.0",
+	"scripts": {
+		"build": "rbxtsc",
+		"watch": "rbxtsc -w"
+	},
+	"types": "out/index.d.ts",
+	"dependencies": {
+		"@rbxts/shared": "../build/shared/f63c762edc9d9ba65af77e5a3d2179252a5b6e40908bde0594653aad968cb443.tgz"
+	}
+}

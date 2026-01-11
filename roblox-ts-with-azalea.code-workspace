@@ -1,0 +1,35 @@
+{
+	"folders": [
+		{
+			"path": ".",
+		},
+		{
+			"path": "client",
+		},
+		{
+			"path": "server",
+		},
+		{
+			"path": "shared",
+		},
+	],
+	"settings": {
+		"typescript.tsdk": "node_modules/typescript/lib",
+		"files.eol": "\n",
+		"[typescript]": {
+			"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+			"editor.formatOnSave": true,
+		},
+		"[typescriptreact]": {
+			"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+			"editor.formatOnSave": true,
+		},
+		"eslint.run": "onType",
+		"eslint.format.enable": true,
+		"eslint.useFlatConfig": false,
+	},
+
+	"extensions": {
+		"recommendations": ["roblox-ts.vscode-roblox-ts", "dbaeumer.vscode-eslint"],
+	},
+}
