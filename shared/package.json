@@ -32,5 +32,9 @@
 		"prettier": "catalog:full",
 		"roblox-ts": "catalog:full",
 		"typescript": "catalog:full"
+	},
+	"dependencies": {
+		"@rbxts/charm": "catalog:shared",
+		"@rbxts/vide": "catalog:shared"
 	}
 }

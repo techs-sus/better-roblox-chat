@@ -26,6 +26,13 @@
 			"."
 		],
 		"catalogs": {
+			"shared": {
+				"@rbxts/vide": "^0.5.7",
+				"@rbxts/vide-charm": "^0.4.0-rc.3",
+				"@rbxts/charm": "^0.11.0-rc.3",
+				"@rbxts/charm-sync": "^0.4.0-rc.6",
+				"@rbxts/t": "^3.2.1"
+			},
 			"full": {
 				"@rbxts/compiler-types": "^3.0.0-types.0",
 				"@rbxts/types": "^1.0.896",

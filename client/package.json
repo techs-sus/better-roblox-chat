@@ -25,6 +25,11 @@
 		"watch": "rbxtsc -w"
 	},
 	"dependencies": {
-		"@rbxts/shared": "../build/shared/f63c762edc9d9ba65af77e5a3d2179252a5b6e40908bde0594653aad968cb443.tgz"
+		"@rbxts/charm": "catalog:shared",
+		"@rbxts/charm-sync": "catalog:shared",
+		"@rbxts/shared": "../build/shared/20308302540656f191c50f5dd78887074c402eeca4d035c2cd3e68de6ba3cf39.tgz",
+		"@rbxts/t": "catalog:shared",
+		"@rbxts/vide": "catalog:shared",
+		"@rbxts/vide-charm": "catalog:shared"
 	}
 }

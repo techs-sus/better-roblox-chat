@@ -1,0 +1,23 @@
+{
+	"name": "roblox-ts-model (storybook, client)",
+	"globIgnorePaths": ["**/package.json", "**/tsconfig.json"],
+	"tree": {
+		"$className": "DataModel",
+		"ReplicatedFirst": {
+			"$className": "ReplicatedFirst",
+
+			"TS": {
+				"$path": "out",
+				"include": {
+					"$path": "include",
+					"node_modules": {
+						"$className": "Folder",
+						"@rbxts": {
+							"$path": "node_modules/@rbxts"
+						}
+					}
+				}
+			}
+		}
+	}
+}

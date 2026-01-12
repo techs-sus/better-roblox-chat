@@ -15,7 +15,12 @@
       "name": "roblox-ts-with-azalea-client",
       "version": "1.0.0",
       "dependencies": {
-        "@rbxts/shared": "../build/shared/f63c762edc9d9ba65af77e5a3d2179252a5b6e40908bde0594653aad968cb443.tgz",
+        "@rbxts/shared": "../build/shared/20308302540656f191c50f5dd78887074c402eeca4d035c2cd3e68de6ba3cf39.tgz",
+        "@rbxts/charm": "catalog:shared",
+        "@rbxts/charm-sync": "catalog:shared",
+        "@rbxts/t": "catalog:shared",
+        "@rbxts/vide": "catalog:shared",
+        "@rbxts/vide-charm": "catalog:shared",
       },
       "devDependencies": {
         "@rbxts/compiler-types": "catalog:full",
@@ -35,7 +40,11 @@
       "name": "roblox-ts-with-azalea-server",
       "version": "1.0.0",
       "dependencies": {
-        "@rbxts/shared": "../build/shared/f63c762edc9d9ba65af77e5a3d2179252a5b6e40908bde0594653aad968cb443.tgz",
+        "@rbxts/charm": "catalog:shared",
+        "@rbxts/charm-sync": "catalog:shared",
+        "@rbxts/t": "catalog:shared",
+        "@rbxts/vide": "catalog:shared",
+        "@rbxts/vide-charm": "catalog:shared",
       },
       "devDependencies": {
         "@rbxts/compiler-types": "catalog:full",
@@ -54,6 +63,10 @@
     "shared": {
       "name": "@rbxts/shared",
       "version": "1.0.0",
+      "dependencies": {
+        "@rbxts/charm": "catalog:shared",
+        "@rbxts/vide": "catalog:shared",
+      },
       "devDependencies": {
         "@rbxts/compiler-types": "catalog:full",
         "@rbxts/types": "catalog:full",
@@ -82,6 +95,13 @@
       "prettier": "^3.7.4",
       "roblox-ts": "^3.0.0",
       "typescript": "^5.9.3",
+    },
+    "shared": {
+      "@rbxts/charm": "^0.11.0-rc.3",
+      "@rbxts/charm-sync": "^0.4.0-rc.6",
+      "@rbxts/t": "^3.2.1",
+      "@rbxts/vide": "^0.5.7",
+      "@rbxts/vide-charm": "^0.4.0-rc.3",
     },
   },
   "packages": {
@@ -119,11 +139,21 @@
 
     "@pkgr/core": ["@pkgr/core@0.2.9", "", {}, "sha512-QNqXyfVS2wm9hweSYD2O7F0G06uurj9kZ96TRQE5Y9hU7+tgdZwIkbAKc5Ocy1HxEY2kuDQa6cQ1WRs/O5LFKA=="],
 
+    "@rbxts/charm": ["@rbxts/charm@0.11.0-rc.3", "", {}, "sha512-PDunf4Z4FsUitrDdQQ0EefBlLWOVs1GiX7Ik5g8qECzxOGIPZFgFVuRTMC0GxBM3zzc8W0PLgIQAry9yMiNI9Q=="],
+
+    "@rbxts/charm-sync": ["@rbxts/charm-sync@0.4.0-rc.6", "", { "dependencies": { "@rbxts/charm": "0.11.0-rc.3" } }, "sha512-TgjTbx4KHsOQPGZ/CEzZceb1Ukd3lT4QybHd7VtJm5qz4e7t+OVosfgqzeZUzUDIkTxR2QxXiGmnZnQp1M0KbQ=="],
+
     "@rbxts/compiler-types": ["@rbxts/compiler-types@3.0.0-types.0", "", {}, "sha512-VGOHJPoL7+56NTatMGqQj3K7xWuzEV+aP4QD5vZiHu+bcff3kiTmtoadaF6NkJrmwfFAvbsd4Dg764ZjWNceag=="],
 
     "@rbxts/shared": ["@rbxts/shared@workspace:shared"],
 
+    "@rbxts/t": ["@rbxts/t@3.2.1", "", {}, "sha512-/fnf2QSx+TI3HSJ6QW2ikvGQk0mlx/63UXo60pLAKGqbxXiAuTJh88bpKpHw6aCzfFLJAwrVIcgCUOokLMPcag=="],
+
     "@rbxts/types": ["@rbxts/types@1.0.896", "", {}, "sha512-zuw1lpvW8hfnHxUmkoEjJ/NDrfpDjqzKWV1iU18DRoM0VsMleLfUv/t7giN70ST/KnGS6S6ubH8la+JTEl6aRw=="],
+
+    "@rbxts/vide": ["@rbxts/vide@0.5.7", "", {}, "sha512-Q9R7ybzuHK1phtLicBHgAjQnlJ/dMsXDs2k296PIMLgLqK9aX/f1skOP7F1K/vo7IrSE0jCG3B3XTOtQL1Sb0Q=="],
+
+    "@rbxts/vide-charm": ["@rbxts/vide-charm@0.4.0-rc.3", "", { "dependencies": { "@rbxts/charm": "0.11.0-rc.3" }, "peerDependencies": { "@rbxts/vide": "*" } }, "sha512-1d5kWEBxkhjFoBZHHPkRJQFzF6wHXkFlFZSDm+zAHVOGHV9eNmSx8fvox6JI2U0w8yIQYR8NB4yJDwPSBnAfTw=="],
 
     "@roblox-ts/luau-ast": ["@roblox-ts/luau-ast@2.0.1", "", {}, "sha512-jej2mzRGwhR9wu4woAtgTwqsKADlegZYlQ+M5qVHRojvjoyJVFkLrSbhBKRr8HR+fVW5nCz0qX7kNa0tSpAY+A=="],
 
@@ -491,9 +521,7 @@
 
     "roblox-ts/typescript": ["typescript@5.5.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-/hreyEujaB0w76zKo6717l3L0o/qEUtRgdvUBvlkhoWeOVMjMuHNHk0BRBzikzuGDqNmPQbg5ifMEqsHLiIUcQ=="],
 
-    "roblox-ts-with-azalea-client/@rbxts/shared": ["@rbxts/shared@../build/shared/f63c762edc9d9ba65af77e5a3d2179252a5b6e40908bde0594653aad968cb443.tgz", {}],
-
-    "roblox-ts-with-azalea-server/@rbxts/shared": ["@rbxts/shared@../build/shared/f63c762edc9d9ba65af77e5a3d2179252a5b6e40908bde0594653aad968cb443.tgz", {}],
+    "roblox-ts-with-azalea-client/@rbxts/shared": ["@rbxts/shared@../build/shared/20308302540656f191c50f5dd78887074c402eeca4d035c2cd3e68de6ba3cf39.tgz", { "dependencies": { "@rbxts/charm": "^0.11.0-rc.3", "@rbxts/vide": "^0.5.7" } }],
 
     "tinyglobby/picomatch": ["picomatch@4.0.3", "", {}, "sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q=="],
 
