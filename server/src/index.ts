@@ -18,6 +18,8 @@ const addMessage = (message: Message) => {
 	});
 };
 
+// FIXME: Implement encrypted and secure networking
+
 const onServerEvent = (player: Player, data: unknown) => {
 	if (!t.string(data)) return;
 

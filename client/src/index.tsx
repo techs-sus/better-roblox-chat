@@ -1,21 +1,13 @@
 /* don't die when the player respawns */
 /* must be done before imports or bugs occur */
 /* you should keep this */
-const thread = coroutine.running();
-task.defer(() => {
-	getfenv(0).script.Destroy();
-	(getfenv(0) as { script: LuaSourceContainer | undefined }).script = undefined;
-
-	coroutine.resume(thread);
-});
-coroutine.yield();
+getfenv(0).script.Parent = undefined;
+if (!game.GetService("RunService").IsClient()) error("Client code should not be required from the server!");
+export = undefined; /* can lead to cyclic dependency chains */
 
 import { cleanup, destroyInstance } from "@rbxts/shared";
 import Vide from "@rbxts/vide";
 import { App } from "gui";
-
-if (!game.GetService("RunService").IsClient()) error("Client code should not be required from the server!");
-export = undefined; /* can lead to cyclic dependency chains */
 
 declare const owner: Player;
 

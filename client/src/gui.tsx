@@ -38,11 +38,16 @@ const Colors = {
 	Crust: Color3.fromRGB(12, 12, 20),
 };
 
-// TODO: Implement text wrapping downward
-// TODO: Make UICorner's more consistent
+// TODO: Implement text wrapping downward, multiline in TextChatService feels nice to use
+// TODO: Make UICorner's more consistent probably done with px padding
 // TODO: Roblox does some black magic to get the Click mouse icon on their whole chat ui
+// TODO: Make padding more consistent, use pixel offsets & make some sort of calc function
+// TODO: ^^^ Investigate how roblox does margin, is it stylesheets?
+// TODO: Add emojis. We can probably steal.
 
-const FONT = Font.fromEnum(Enum.Font.BuilderSans);
+// https://create.roblox.com/docs/chat/chat-window
+const FONT = Font.fromEnum(Enum.Font.BuilderSansMedium);
+const CHAT_TEXT_SIZE = 18;
 
 const UserInputService = game.GetService("UserInputService");
 
@@ -98,10 +103,13 @@ function ComputeNameColor(name: string) {
 
 const ConsistentFrameCorner = () => <uicorner />;
 
+// const TextService = game.GetService("TextService");
+
+declare const owner: Player;
+
 const Message = ({ author, text, timestamp }: Message) => {
 	const knownUserStoreSource = useSignalState(getKnownUserStore);
 
-	// I am A loser
 	addUsersToStore([author.userId]);
 
 	return (
@@ -111,7 +119,7 @@ const Message = ({ author, text, timestamp }: Message) => {
 			TextColor3={Colors.Text}
 			TextXAlignment={Enum.TextXAlignment.Left}
 			TextYAlignment={Enum.TextYAlignment.Center}
-			TextSize={18}
+			TextSize={CHAT_TEXT_SIZE}
 			AutomaticSize={Enum.AutomaticSize.XY}
 			TextWrapped={true}
 			BorderSizePixel={0}
@@ -120,6 +128,9 @@ const Message = ({ author, text, timestamp }: Message) => {
 			Text={Vide.derive(() => {
 				const resolved = knownUserStoreSource().get(author.userId);
 				const color = resolved === undefined ? "d27e00" : ComputeNameColor(resolved.username).ToHex();
+
+				// FIXME: This errors if not called on the server
+				// text = TextService.FilterStringAsync(text, author.userId).GetNonChatStringForUserAsync(owner.UserId);
 
 				return `<font color='#${color}'>${resolved === undefined ? "@" + author.userId : resolved.displayName}:</font> ${filterRichText(text)[0]}`;
 			})}
@@ -179,59 +190,69 @@ export const App = () => {
 		}),
 	);
 
-	const absoluteCanvasSize = Vide.source(Vector2.zero);
-	const absoluteWindowSize = Vide.source(Vector2.zero);
-	const canvasPosition = Vide.source(Vector2.zero);
 	const BOTTOM_SCROLL_THRESHOLD = 10;
+	const isNearBottom = Vide.source(true);
 
-	const isNearBottom = Vide.derive(() => {
-		const maxScroll = absoluteCanvasSize().Y - absoluteWindowSize().Y;
+	const list = (
+		<uilistlayout
+			FillDirection={Enum.FillDirection.Vertical}
+			HorizontalAlignment={Enum.HorizontalAlignment.Left}
+			SortOrder={Enum.SortOrder.LayoutOrder}
+		/>
+	) as UIListLayout;
 
-		return maxScroll <= 0 || canvasPosition().Y >= maxScroll - BOTTOM_SCROLL_THRESHOLD;
-	});
+	Vide.cleanup(
+		list.GetPropertyChangedSignal("AbsoluteContentSize").Connect(() => {
+			if (isNearBottom()) {
+				// scroll down
+				scrollingFrame.CanvasPosition = new Vector2(scrollingFrame.CanvasPosition.X, list.AbsoluteContentSize.Y - 100);
+			}
+		}),
+	);
 
 	const scrollingFrame = (
 		<scrollingframe
 			BorderSizePixel={0}
 			Size={UDim2.fromScale(0.95, 0.85 - 0.05 / 2)}
 			Position={UDim2.fromScale(0.05 / 2, 0.05 / 2)}
+			AutomaticCanvasSize={Enum.AutomaticSize.XY}
+			CanvasSize={UDim2.fromScale(0, 0)}
 			// BackgroundTransparency={0.95}
 			BackgroundColor3={Colors.Surface1}
 			ScrollBarImageColor3={Colors.Overlay1}
 			HorizontalScrollBarInset={Enum.ScrollBarInset.Always}
-			AutomaticCanvasSize={Enum.AutomaticSize.XY}
-			AbsoluteCanvasSizeChanged={absoluteCanvasSize}
-			CanvasPositionChanged={canvasPosition}
-			AbsoluteWindowSizeChanged={absoluteWindowSize}
 		>
 			<Vide.For each={useSignalState(State.getters.messages)}>
 				{(message: Message) => <Message {...message} />}
 			</Vide.For>
 
-			<uilistlayout
-				FillDirection={Enum.FillDirection.Vertical}
-				HorizontalAlignment={Enum.HorizontalAlignment.Left}
-				SortOrder={Enum.SortOrder.LayoutOrder}
+			{list}
+
+			<uipadding
+				PaddingLeft={new UDim(0.02, 0)}
+				PaddingRight={new UDim(0.02, 0)}
+				PaddingTop={new UDim(0.02, 0)}
+				PaddingBottom={new UDim(0.02, 0)}
 			/>
+
 			<ConsistentFrameCorner />
 		</scrollingframe>
 	) as ScrollingFrame;
 
-	// TODO: Fix autoscroll
-	Vide.derive(() => {
-		const canvasSize = absoluteCanvasSize();
-		const windowSize = absoluteWindowSize();
-
-		if (isNearBottom()) {
-			const maxScroll = canvasSize.Y - windowSize.Y;
-			scrollingFrame.CanvasPosition = new Vector2(0, math.max(0, maxScroll));
-		}
-	});
+	Vide.cleanup(
+		scrollingFrame.GetPropertyChangedSignal("CanvasPosition").Connect(() => {
+			// Y = 0..inf
+			isNearBottom(
+				scrollingFrame.AbsoluteCanvasSize.sub(scrollingFrame.CanvasPosition).sub(scrollingFrame.AbsoluteWindowSize).Y <=
+					BOTTOM_SCROLL_THRESHOLD,
+			);
+		}),
+	);
 
 	return (
 		<frame
 			BorderSizePixel={0}
-			BackgroundColor3={Colors.Surface0}
+			BackgroundColor3={Colors.Base}
 			Size={UDim2.fromScale(0.3, 0.3)}
 			Position={UDim2.fromScale(1 - 0.3 - 0.0125, 0.025)}
 		>

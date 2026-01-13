@@ -3,8 +3,6 @@ import { ClientArguments, State } from "@rbxts/shared";
 
 declare const clientArguments: ClientArguments;
 
-print(clientArguments);
-
 charmSyncClient.addSignals(State.setters);
 
 const { remote, networkKey } = clientArguments;
